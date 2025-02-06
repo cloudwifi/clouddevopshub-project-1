@@ -11,7 +11,7 @@ node {
     
     stage('Clone Repo') { // for display purposes
       // Get some code from a GitHub repository
-      git 'https://github.com/vikas4cloud/DevOps-Example.git'
+      git 'https://github.com/cloudwifi/DevOps-Example.git'
       // Get the Maven tool.
       // ** NOTE: This 'maven-3.5.2' Maven tool must be configured
       // **       in the global configuration.           
@@ -33,7 +33,7 @@ node {
       echo "Docker Image Tag Name: ${dockerImageTag}"
 	  
         sh "docker images"
-        sh "docker login -u vickeyyvickey -p Hello@123" // put PWD
+        sh "docker login -u naveenjangid22 -p kota@1234# // put PWD
 	
 }
     stage('Docker push'){
@@ -41,7 +41,7 @@ node {
 	// sh "docker images | awk '{print $3}' | awk 'NR==2'"
 	//sh echo "Enter the docker lattest imageID"
 	//sh "read imageid"
-	   sh "docker tag cabfe91aa49b  vickeyyvickey/myapplication" //must change your name and tag no
-        sh "docker push   vickeyyvickey/myapplication"
+	   sh "docker tag cabfe91aa49b naveenjangid22/myapplication" //must change your name and tag no
+        sh "docker push   naveenjangid22/myapplication"
   }
 }
