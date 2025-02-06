@@ -7,13 +7,13 @@ node {
     def dockerImageTag = "devopsexample${env.BUILD_NUMBER}"
     
     stage('Clone Repo') {
-        // Get some code from a GitHub repository
-        git 'https://github.com/cloudwifi/DevOps-Example.git'
+        // Clone the repository (add credentials if private)
+        git url: 'https://github.com/cloudwifi/DevOps-Example.git'
     }    
 
     stage('Build Project') {
         // Build project via Maven
-        sh "'${mvnHome}/bin/mvn' clean install"
+        sh "${mvnHome}/bin/mvn clean install"
     }
 		
     stage('Build Docker Image') {
@@ -25,8 +25,10 @@ node {
         echo "Docker Image Tag Name: ${dockerImageTag}"
         sh "docker images"
 
-        // Corrected Docker login command (avoid using '#' in passwords)
-        sh 'echo "kota@1234#" | docker login -u naveenjangid22 --password-stdin'
+        // Securely fetch DockerHub credentials from Jenkins
+        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+            sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+        }
     }
 
     stage('Docker push') {
