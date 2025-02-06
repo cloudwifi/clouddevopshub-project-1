@@ -8,7 +8,7 @@ node {
     
     stage('Clone Repo') {
         // Clone the repository (add credentials if private)
-        git url: 'https://github.com/cloudwifi/DevOps-Example.git'
+        git url: 'https://github.com/cloudwifi/clouddevopshub-project-1.git'
     }    
 
     stage('Build Project') {
